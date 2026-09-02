@@ -19,7 +19,7 @@ from langchain_openai import ChatOpenAI
 from pydantic import BaseModel, Field
 
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[1]
 load_dotenv(ROOT / ".env")
 
 AgentId = Literal["quant", "trader", "contrarian"]

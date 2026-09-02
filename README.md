@@ -5,14 +5,13 @@ BunnyGPT is the public, pre mint intelligence preview for BunnyHood. Visitors ch
 The production app uses Vercel's native Next.js and Python layout:
 
 ```text
-frontend/                     Vercel project root
-  api/index.py                FastAPI function entrypoint
-  api/core.py                 LangChain, search, prices, and SSE streaming
-  api/bunnyhood-knowledge.ts  Official BunnyHood source of truth
-  pyproject.toml              Python dependencies
-  components/bunny-gpt.tsx    Agent selection and chat interface
-  lib/personalities.ts        Quant, Trader, and Contrarian profiles
-  public/                     Official BunnyHood images
+api/index.py                  FastAPI function entrypoint
+api/core.py                   LangChain, search, prices, and SSE streaming
+api/bunnyhood-knowledge.ts    Official BunnyHood source of truth
+pyproject.toml                Python dependencies
+components/bunny-gpt.tsx      Agent selection and chat interface
+lib/personalities.ts          Quant, Trader, and Contrarian profiles
+public/                       Official BunnyHood images
 scripts/dev.mjs               Combined local development launcher
 ```
 
@@ -21,7 +20,7 @@ scripts/dev.mjs               Combined local development launcher
 Copy `.env.example` to `.env`, add the real keys, then run:
 
 ```bash
-npm --prefix frontend ci
+npm ci
 python -m pip install -r requirements.txt
 npm run dev
 ```
@@ -32,7 +31,7 @@ The command starts FastAPI at `http://127.0.0.1:8000` and Next.js at `http://loc
 
 1. Push the entire repository to GitHub.
 2. In Vercel, select Add New Project and import the repository.
-3. Set Root Directory to `frontend`.
+3. Keep Root Directory set to the repository root.
 4. Keep Framework Preset set to Next.js. Vercel packages `api/index.py` as the Python API function.
 5. Add these project environment variables for Production, Preview, and Development:
 

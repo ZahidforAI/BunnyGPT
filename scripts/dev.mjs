@@ -4,7 +4,6 @@ import path from "node:path";
 import process from "node:process";
 
 const projectRoot = process.cwd();
-const frontendRoot = path.join(projectRoot, "frontend");
 const venvPython = path.join(
   projectRoot,
   ".venv",
@@ -50,13 +49,13 @@ process.on("SIGINT", () => stop(0));
 process.on("SIGTERM", () => stop(0));
 
 console.log("Starting BunnyGPT LangChain API on http://127.0.0.1:8000");
-start(python, ["-m", "uvicorn", "frontend.api.core:app", "--host", "127.0.0.1", "--port", "8000"], "langchain");
+start(python, ["-m", "uvicorn", "api.core:app", "--host", "127.0.0.1", "--port", "8000"], "langchain");
 start(
   process.execPath,
   [
-    path.join(frontendRoot, "node_modules", "next", "dist", "bin", "next"),
+    path.join(projectRoot, "node_modules", "next", "dist", "bin", "next"),
     "dev",
-    frontendRoot,
+    projectRoot,
     "--hostname",
     "0.0.0.0",
     "--port",

@@ -2,6 +2,6 @@
 
 import sys
 
-from frontend.api import core
+from api import core
 
 sys.modules[__name__] = core
