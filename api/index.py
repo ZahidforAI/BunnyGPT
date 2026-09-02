@@ -1,5 +1,5 @@
 """Vercel Python function entrypoint."""
 
-from .core import app
+from api.core import app
 
 __all__ = ["app"]
