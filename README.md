@@ -2,19 +2,17 @@
 
 BunnyGPT is the public, pre mint intelligence preview for BunnyHood. Visitors choose Quant, Trader, or Contrarian and can ask about BunnyHood, markets, crypto, AI, technology, and current events.
 
-The production repository is organized as two Vercel Services:
+The production app uses Vercel's native Next.js and Python layout:
 
 ```text
-frontend/                     Native Next.js application
-  app/api/chat/route.ts       Streaming proxy to the private backend
+frontend/                     Vercel project root
+  api/index.py                FastAPI function entrypoint
+  api/core.py                 LangChain, search, prices, and SSE streaming
+  api/bunnyhood-knowledge.ts  Official BunnyHood source of truth
+  pyproject.toml              Python dependencies
   components/bunny-gpt.tsx    Agent selection and chat interface
   lib/personalities.ts        Quant, Trader, and Contrarian profiles
   public/                     Official BunnyHood images
-backend/                      Private FastAPI service
-  app.py                      LangChain, search, prices, and SSE streaming
-  bunnyhood-knowledge.ts      Official BunnyHood source of truth
-  pyproject.toml              Vercel Python dependencies
-vercel.json                   Service definitions, binding, and routing
 scripts/dev.mjs               Combined local development launcher
 ```
 
@@ -34,8 +32,8 @@ The command starts FastAPI at `http://127.0.0.1:8000` and Next.js at `http://loc
 
 1. Push the entire repository to GitHub.
 2. In Vercel, select Add New Project and import the repository.
-3. Keep Root Directory set to the repository root.
-4. Set Framework Preset to Services. Vercel reads `vercel.json` and builds the two services independently.
+3. Set Root Directory to `frontend`.
+4. Keep Framework Preset set to Next.js. Vercel packages `api/index.py` as the Python API function.
 5. Add these project environment variables for Production, Preview, and Development:
 
 ```text
@@ -46,11 +44,9 @@ OPENROUTER_SITE_URL=https://your-project.vercel.app
 YOU_API_KEY
 ```
 
-Do not add `LANGCHAIN_API_URL` in Vercel. The `frontend` service binding injects the correct private backend URL for every production and preview deployment.
-
 6. Select Deploy. After the first deployment, replace `OPENROUTER_SITE_URL` with the real Vercel domain if necessary and redeploy.
 
-The backend has no public rewrite. Browser requests go to the Next.js `/api/chat` route, which calls FastAPI through Vercel internal service networking. API keys stay server side.
+The browser calls the same-domain FastAPI `/api/chat` function. API keys stay server side.
 
 ## Checks
 

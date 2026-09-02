@@ -50,7 +50,7 @@ process.on("SIGINT", () => stop(0));
 process.on("SIGTERM", () => stop(0));
 
 console.log("Starting BunnyGPT LangChain API on http://127.0.0.1:8000");
-start(python, ["-m", "uvicorn", "backend.app:app", "--host", "127.0.0.1", "--port", "8000"], "langchain");
+start(python, ["-m", "uvicorn", "frontend.api.core:app", "--host", "127.0.0.1", "--port", "8000"], "langchain");
 start(
   process.execPath,
   [
